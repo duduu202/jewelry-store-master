@@ -52,6 +52,7 @@ const UserCreatePage = () => {
             email: userData?.email,
             CPF: userData?.CPF,
             phone: userData?.phone,
+            password: userData?.password,
         }} route={'/user'} />
         {/* <h3>Endereço</h3> */}
         {/* <GenericCreate object={{
