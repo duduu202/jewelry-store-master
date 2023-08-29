@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import {
 
-} from "./styles";
 import api from "../../services/api";
 
 

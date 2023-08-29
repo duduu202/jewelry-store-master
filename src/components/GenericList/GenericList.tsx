@@ -10,12 +10,12 @@ import api from "../../services/api";
 
 
 interface Props {
-  column_names: string[];
-  data: IData[];
+  column_names?: string[];
+  data?: IData[];
 }
 interface IData {
   id: string;
-  items: JSX.Element[];
+  items: any[];
 }
 function GenericList({
   column_names,
@@ -26,16 +26,16 @@ function GenericList({
       <GenericListTable>
         <thead>
           <tr>
-            {column_names.map((head) => (
+            {column_names?.map((head) => (
               <GenericListHeaderCell key={head}>{head}</GenericListHeaderCell>
             ))}
           </tr>
         </thead>
         <tbody>
-          {data.map((line) => (
+          {data?.map((line) => (
             <GenericListRow key={line.id}>
               {line.items.map((item) => (
-                <GenericListCell key={item}>{item}</GenericListCell>
+                <GenericListCell>{item}</GenericListCell>
               ))}
             </GenericListRow>
           ))}
