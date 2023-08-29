@@ -24,6 +24,7 @@ export interface User {
   name: string;
   CPF: string;
   email: string;
+  password?: string;
   role: string;
   address?: Address[];
   created_at: string ;
