@@ -43,6 +43,11 @@ const UserListPage = () => {
         navigate(`/users/edit/${id}`);
       };
 
+      const handleCreate = () => {
+        // Set the ID of the user being edited in the state
+        navigate(`/users/create/`);
+      };
+
 
     return (
       <PageContainer>
@@ -64,6 +69,8 @@ const UserListPage = () => {
                     }
                 })}/>
             )}
+            <button onClick={() => handleCreate()}>Criar</button>
+
         </Container>
       </PageContainer>
     );

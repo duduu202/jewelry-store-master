@@ -9,6 +9,7 @@ import PrivateRoute from './RoutesPrivate';
 import LoginPage from '../pages/Login/Login';
 import UserListPage from '../pages/Master/UserList';
 import UserEditPage from '../pages/Master/UserEdit';
+import UserCreatePage from '../pages/Master/UserCreate';
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -25,6 +26,7 @@ const AppRoutes = () => {
           <Route path="/dashboard" element={<HomePage />} />
           <Route path="/users" element={<UserListPage />} />
           <Route path="/users/edit/:id" element={<UserEditPage />} />
+          <Route path="/users/create" element={<UserCreatePage />} />
         </Route>
 
         <Route path="/login" element={<LoginPage />} />

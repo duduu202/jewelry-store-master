@@ -9,11 +9,10 @@ import GenericList from "../../components/GenericList/GenericList";
 import { Address, IUser, User } from "../../hooks/useAuth";
 import { IPaginatedResponse } from "../../Interfaces/IPaginatedResponse";
 import { Navigate, useParams } from "react-router-dom";
-import GenericEdit from "../../components/GenericEdit/GenericEdit";
 import GenericCreate from "../../components/GenericCreate/GenericCreate";
 
 
-const UserEditPage = () => {
+const UserCreatePage = () => {
     //const { data } = await api.get('/user');
     //console.log("data",data.results)
     const [ userData, setUserData ] = useState<User>();
@@ -47,22 +46,22 @@ const UserEditPage = () => {
         <Container>
         <h2>Editar</h2>
         <h3>Usuário</h3>
-        {/* <GenericEdit column_names={['nome']} data={} /> */}
-        <GenericEdit object={{
+        {/* <GenericCreate column_names={['nome']} data={} /> */}
+        <GenericCreate object={{
             name: userData?.name,
             email: userData?.email,
             CPF: userData?.CPF,
             phone: userData?.phone,
         }} route={'/user/'+id} />
-        <h3>Endereço</h3>
-        <GenericEdit object={{
+        {/* <h3>Endereço</h3> */}
+        {/* <GenericCreate object={{
             street: addresses?.street,
             number: addresses?.number,
             district: addresses?.district,
             city: addresses?.city,
             state: addresses?.state,
             zip_code: addresses?.zip_code,
-        }} route={'/address/'+addresses?.id} />
+        }} route={'/address/'+addresses?.id} /> */}
 
         </Container>
       </PageContainer>
@@ -82,4 +81,4 @@ const UserEditPage = () => {
         }
 */
 
-export default UserEditPage;
+export default UserCreatePage;
