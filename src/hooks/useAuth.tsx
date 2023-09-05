@@ -6,16 +6,16 @@ export interface IUser {
 }
 
 export interface Address {
-  id: string;
-  user_id: string;
+  id?: string;
+  user_id?: string;
   street: string;
   number: string;
   district: string;
   city: string;
   state: string;
   zip_code: string;
-  created_at: string;
-  updated_at: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface User {

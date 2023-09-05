@@ -1,21 +1,32 @@
-import { useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
 const loginRoute = '/user/session';
 
+
+
 const Login = () => {
+  const navigate = useNavigate();
   const { signIn } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async () => {
+  useEffect(() => {
+    setPassword('12345678');
+    setEmail('master@mestres.com');
+  } ,[]);
+
+  const handleSubmit = async (e:FormEvent) => {
+    e.preventDefault();
     // Chamar a função de login aqui
+    console.log("loginRoute",loginRoute)
     const { data } = await api.post(loginRoute, { email, password, remember_me: true });
     console.log(data);
     signIn(data);
+    navigate('/');
 
   };
 
