@@ -43,14 +43,15 @@ const Item = styled.li`
   color: ${({ theme }) => theme.colors.default};
   cursor: pointer;
     &:hover {
-        background-color: ${({ theme }) => theme.colors.font};
+        background-color: ${({ theme }) => theme.colors.dark_font};
         color: ${({ theme }) => theme.colors.default};
     }
 
 `;
 
 const Container = styled.div`
-
+  width: 100%;
+  padding: 0.5rem;
 
 `;
 

@@ -2,12 +2,15 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
+import handleError from '../../utils/message';
+import { toast } from 'react-toastify';
 
 const loginRoute = '/user/session';
 
 
 
 const Login = () => {
+
   const navigate = useNavigate();
   const { signIn } = useAuth();
 
@@ -23,10 +26,16 @@ const Login = () => {
     e.preventDefault();
     // Chamar a função de login aqui
     console.log("loginRoute",loginRoute)
-    const { data } = await api.post(loginRoute, { email, password, remember_me: true });
-    console.log(data);
-    signIn(data);
-    navigate('/');
+    try{
+      const { data } = await api.post(loginRoute, { email, password, remember_me: true });
+      console.log(data);
+      signIn(data);
+      navigate('/');
+    }
+    catch(err){
+      handleError(err);
+    }
+
 
   };
 

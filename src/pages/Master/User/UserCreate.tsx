@@ -1,15 +1,12 @@
-import Navbar from "../../components/Navbar/Navbar";
-import { PageContainer } from "../Home/styles";
-import api from "../../services/api";
+
 import { useEffect, useState } from "react";
-import { UserList } from "./style";
-import {Item, LineList, List} from "../../styles/style";
-import { Container } from "../../styles/style";
-import GenericList from "../../components/GenericList/GenericList";
-import { Address, IUser, User } from "../../hooks/useAuth";
-import { IPaginatedResponse } from "../../Interfaces/IPaginatedResponse";
-import { Navigate, useParams } from "react-router-dom";
-import GenericCreate from "../../components/GenericCreate/GenericCreate";
+import { useParams } from "react-router-dom";
+import { PageContainer } from "../../Home/styles";
+import Navbar from "../../../components/Navbar/Navbar";
+import { Container } from "../../../styles/style";
+import GenericCreate from "../../../components/GenericCreate/GenericCreate";
+import { Address, User } from "../../../hooks/useAuth";
+import api from "../../../services/api";
 
 
 const UserCreatePage = () => {

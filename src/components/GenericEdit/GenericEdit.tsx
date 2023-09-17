@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { ButtonModel } from "../ButtonModel/ButtonModel";
 
 interface Props {
   object: ObjectParams;
   route: string;
   id?: string;
+  updateFunction?: () => void;
 }
 
 interface ObjectParams {
@@ -21,6 +24,8 @@ interface Field {
 
 function GenericEdit({ object, route, id }: Props) {
   const [updatedObject, setUpdatedObject] = useState<ObjectParams>({ fields: [] });
+
+  
 
   useEffect(() => {
     setUpdatedObject(object);
@@ -85,8 +90,8 @@ function GenericEdit({ object, route, id }: Props) {
           </div>
         )
       ))}
-      <button onClick={handleUpdate}>Atualizar</button>
-      <button onClick={handleDelete}>Deletar</button>
+      <ButtonModel onClick={handleUpdate}>Atualizar</ButtonModel>
+      <ButtonModel onClick={handleDelete}><FaRegTrashAlt/> Deletar</ButtonModel>
     </div>
   );
 }

@@ -136,7 +136,7 @@ export const ProfileImage = styled.img<NavbarProps>`
 export const ProfileName = styled.span`
   font-family: 'Exo', sans-serif;
   font-size: 12pt;
-  color: ${({ theme }) => theme.colors.font };
+  color: ${({ theme }) => theme.colors.dark_font };
   font-weight: bold;
   white-space: nowrap;
   overflow:hidden;

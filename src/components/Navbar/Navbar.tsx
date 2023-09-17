@@ -13,7 +13,7 @@ import {
   Icon,
 } from "./styles";
 
-import { FaHeadphones, FaChartPie, FaPlug, FaBook, FaUserAlt } from "react-icons/fa";
+import { FaHeadphones, FaChartPie, FaPlug, FaBook, FaUserAlt, FaSitemap, FaShoppingBag, FaShoppingCart } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 import { ImArrowLeft2 } from "react-icons/im";
 import { ImArrowRight2 } from "react-icons/im";
@@ -43,16 +43,21 @@ const Navbar = () => {
             <span>Dashboard</span>
           </NavbarMenuItem>
 
-          <NavbarMenuItem to="/users" isOpen={isExpanded}>
-            <FaHeadphones className="icon" size={18} />
+          <NavbarMenuItem to="/user" isOpen={isExpanded}>
+            <FaUserAlt className="icon" size={18} />
             <span>Usuarios</span>
           </NavbarMenuItem>
 
           
-          {/* <NavbarMenuItem to="/channels" isOpen={isExpanded}> */}
-            {/* <FaPlug className="icon" size={18} /> */}
-            {/* <span>Canais</span> */}
-          {/* </NavbarMenuItem> */}
+          <NavbarMenuItem to="/product" isOpen={isExpanded}>
+            <FaShoppingBag className="icon" size={18} />
+            <span>Produtos</span>
+          </NavbarMenuItem>
+
+          <NavbarMenuItem to="/cart" isOpen={isExpanded}>
+            <FaShoppingCart className="icon" size={18} />
+            <span>Pedidos</span>
+          </NavbarMenuItem>
 {/*  */}
           {/* <NavbarMenuItem to="/reports" isOpen={isExpanded}> */}
             {/* <BsFillFileEarmarkBarGraphFill className="icon" size={18} /> */}

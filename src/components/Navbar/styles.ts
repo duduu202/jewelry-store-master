@@ -15,7 +15,7 @@ const fadeIn = keyframes`
 `;
 
 export const NavbarContainer = styled.div<NavbarProps>`
-  width: ${({ isOpen }) => isOpen ? '15rem' : '4.5rem'};
+  width: ${({ isOpen }) => isOpen ? '17.8rem' : '4.5rem'};
   height: 100vh;
   background-color: ${(props) => props.theme.colors.background};
 
@@ -136,7 +136,7 @@ export const ProfileImage = styled.img<NavbarProps>`
 export const ProfileName = styled.span`
   font-family: 'Exo', sans-serif;
   font-size: 12pt;
-  color: ${({ theme }) => theme.colors.font };
+  color: ${({ theme }) => theme.colors.dark_font };
   font-weight: bold;
   white-space: nowrap;
   overflow:hidden;
