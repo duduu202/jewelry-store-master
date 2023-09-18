@@ -13,6 +13,8 @@ import { ModalContent } from "../../../components/Modal/styles";
 import handleError from "../../../utils/message";
 import UserEditor from "../User/UserEditor";
 import { ICartDTO } from "./dto/CartDTO";
+import { ButtonComponent } from "../../../components/Button/styles";
+import ListEditor from "../../../components/GenericEditor/ListEditor";
 
 
 const route = '/cart';
@@ -82,7 +84,12 @@ const CartsListPage = () => {
         <Navbar />
         <Container>
         <h1>Pedidos</h1>
-        {loading ? (
+        <h1>Produtos</h1>
+            <ListEditor route={route} objectKeys={{
+                status: 'Status',
+                total_price: 'Valor Total',
+            }} ></ListEditor>
+        {/* {loading ? (
             <p>Carregando...</p>
             ) : (
                 <div>
@@ -91,8 +98,8 @@ const CartsListPage = () => {
                             id: item.id,
                             items: [item.status, item.total_price,
                                 <div>
-                                    <button onClick={() => handleDelete(item.id)}>Excluir</button>
-                                    <button onClick={() => handleEdit(item.id)}>Editar</button>
+                                    <ButtonComponent onClick={() => handleDelete(item.id)}>Excluir</ButtonComponent>
+                                    <ButtonComponent onClick={() => handleEdit(item.id)}>Editar</ButtonComponent>
                                 </div>
 
                         ]
@@ -103,12 +110,9 @@ const CartsListPage = () => {
                             <UserEditor handleSave={handleSave} id={editingUserId}/>
                         </ModalContent>
                     </Modal>
-
+                    <ButtonComponent onClick={() => handleCreate()}>Criar</ButtonComponent>
                 </div>
-
-
-            )}
-            <button onClick={() => handleCreate()}>Criar</button>
+            )} */}
 
         </Container>
       </PageContainer>

@@ -13,7 +13,7 @@ interface IInputProps {
 }
 
 
-export const Input = ({ type, iconName, placeholder, onChange, value }: IInputProps) => {
+export const Input = ({ type, iconName, placeholder, onChange, value, label }: IInputProps) => {
 
   
 
@@ -22,7 +22,7 @@ export const Input = ({ type, iconName, placeholder, onChange, value }: IInputPr
       <InputWrapper>
       <Icon iconType={iconName} color={theme.colors.primary} />
       </InputWrapper>
-      <InputComponent placeholder={placeholder} type={type} onChange={onChange} value={value} />
+      <InputComponent title={placeholder} placeholder={label} type={type} onChange={onChange} value={value} />
     </Container>
   )
 }

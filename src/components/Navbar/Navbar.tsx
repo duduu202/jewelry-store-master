@@ -21,11 +21,15 @@ import { BsFillFileEarmarkBarGraphFill } from "react-icons/bs";
 
 import logo from "../../assets/logo.svg";
 import user from "../../assets/user.png";
+import { ButtonComponent } from "../Button/styles";
+import { useAuth } from "../../hooks/useAuth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(true);
-
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
   return (
     <NavbarContainer isOpen={isExpanded}>
       <div>
@@ -90,6 +94,15 @@ const Navbar = () => {
         <ProfileContainer isOpen={isExpanded}>
           <ProfileName>Duduu202 FullStack :D</ProfileName>
           <ProfileOccupation>Administrador</ProfileOccupation>
+          <ButtonComponent
+          type="button"
+          onClick={() => {
+            signOut();
+            navigate('/login');
+          }}
+        >
+          logout
+        </ButtonComponent>
         </ProfileContainer>
       </NavbarFooter>
     </NavbarContainer>

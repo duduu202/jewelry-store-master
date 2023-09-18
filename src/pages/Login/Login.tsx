@@ -24,8 +24,6 @@ const Login = () => {
 
   const handleSubmit = async (e:FormEvent) => {
     e.preventDefault();
-    // Chamar a função de login aqui
-    console.log("loginRoute",loginRoute)
     try{
       const { data } = await api.post(loginRoute, { email, password, remember_me: true });
       console.log(data);

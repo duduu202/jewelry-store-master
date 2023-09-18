@@ -13,6 +13,10 @@ import { ModalContent } from "../../../components/Modal/styles";
 import handleError from "../../../utils/message";
 import UserEditor from "../User/UserEditor";
 import { IProductDTO } from "./dto/ProductDTO";
+import { ButtonComponent } from "../../../components/Button/styles";
+import ProductEditor from "./ProductEditor";
+import ListPage from "../../../components/GenericEditor/ListEditor";
+import ListEditor from "../../../components/GenericEditor/ListEditor";
 
 
 const route = '/product';
@@ -41,13 +45,14 @@ const ProductsListPage = () => {
     }
 
     const handleSave = async (user: IProductDTO) => {
-        const { id, role, created_at, updated_at, address, ...rest } = user;
+        const { price, stock, name, description, ...rest } = user;
+        console.log("product",user)
         try{
             if(user.id){
-                await api.put(route + `/${user.id}`, rest);
+                await api.put(route + `/${user.id}`, {price, stock, name, description});
             }
             else{
-                await api.post(route, rest);
+                await api.post(route, {price, stock, name, description});
             }
         } catch (error) {
             handleError(error);
@@ -82,7 +87,13 @@ const ProductsListPage = () => {
         <Navbar />
         <Container>
         <h1>Produtos</h1>
-        {loading ? (
+            <ListEditor route={route} objectKeys={{
+                name: "Nome",
+                stock: "Estoque",
+                image: "Imagem",
+                price: "Preço",
+            }} ></ListEditor>
+        {/* {loading ? (
             <p>Carregando...</p>
             ) : (
                 <div>
@@ -91,8 +102,8 @@ const ProductsListPage = () => {
                             id: item.id,
                             items: [item.name, item.stock, item.image ? <img src={item.image} alt="imagem" width="100px" height="100px"/> : <></>, item.price ? item.price : <></>,
                                 <div>
-                                    <button onClick={() => handleDelete(item.id)}>Excluir</button>
-                                    <button onClick={() => handleEdit(item.id)}>Editar</button>
+                                    <ButtonComponent onClick={() => handleDelete(item.id)}>Excluir</ButtonComponent>
+                                    <ButtonComponent onClick={() => handleEdit(item.id)}>Editar</ButtonComponent>
                                 </div>
 
                         ]
@@ -100,15 +111,13 @@ const ProductsListPage = () => {
                     })}/>
                     <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
                         <ModalContent>
-                            <UserEditor handleSave={handleSave} id={editingUserId}/>
+                            <ProductEditor handleSave={handleSave} id={editingUserId}/>
                         </ModalContent>
                     </Modal>
 
+                    <ButtonComponent onClick={() => handleCreate()}>Criar</ButtonComponent>
                 </div>
-
-
-            )}
-            <button onClick={() => handleCreate()}>Criar</button>
+            )} */}
 
         </Container>
       </PageContainer>

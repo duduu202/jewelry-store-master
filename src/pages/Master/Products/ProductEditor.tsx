@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Address, User } from "../../../hooks/useAuth";
+
 import { PageContainer } from "../../Home/styles";
 import Navbar from "../../../components/Navbar/Navbar";
 import { Container } from "../../../styles/style";
@@ -9,28 +9,32 @@ import api from "../../../services/api";
 import { Input } from "../../../components/Input/Input";
 import handleError from "../../../utils/message";
 import { ButtonComponent } from "../../../components/Button/styles";
+import { IProductDTO } from "./dto/ProductDTO";
 
+
+
+const route = '/product';
 
 interface IProps {
-  handleSave: (user: User) => void;
+  handleSave: (user: IProductDTO) => void;
   id?: string;
 }
 
-const UserEditor = (props: IProps) => {
+const ProductEditor = (props: IProps) => {
   const { id } = props;
-  const [userData, setUserData] = useState<User>();
+  const [productData, setProductData] = useState<IProductDTO>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       if(!id){
-        setUserData(undefined);
+        setProductData(undefined);
       }
       try {
-        const { data: userData } = await api.get<User>('/user/' + id);
-        setUserData(userData);
+        const { data: productData } = await api.get<IProductDTO>(route + '/' + id);
+        setProductData(productData);
 
-        console.log("userData", userData);
+        console.log("productData", productData);
 
         setLoading(false);
       } catch (error) {
@@ -44,16 +48,19 @@ const UserEditor = (props: IProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
     console.log("event.target.placeholder", event.target.placeholder);
-    setUserData({ ...userData, [event.target.placeholder]: event.target.value });
+    setProductData({ ...productData, [event.target.placeholder]: event.target.value });
 
   }
 
   const handleSave = async () => {
-    if(!userData){
+    if(!productData){
       return;
     }
+    if(!productData.description){
+      productData.description = undefined;
+    }
     try {
-      props.handleSave(userData);
+      props.handleSave(productData);
     } catch (error) {
       handleError(error);
     }
@@ -65,12 +72,13 @@ const UserEditor = (props: IProps) => {
   
   return (
     <div>
-        <h2>{id? 'Editar' : 'Criar'} usuário</h2>
-        <Input type="text" label="Nome" iconName="user" placeholder="name" value={userData? userData.name : ''} onChange={e => handleChange(e)} />
-        <Input type="text" label="Email" iconName="email" placeholder="email" value={userData? userData.email : ''} onChange={e => handleChange(e)} />
-        <Input type="text" label="CPF" iconName="cpf" placeholder="CPF" value={userData? userData.CPF : ''} onChange={e => handleChange(e)} />
-        <Input type="text" label="phone" iconName="phone" placeholder="phone" value={userData? userData.phone : ''} onChange={e => handleChange(e)} />
-        <Input type="text" label="password" iconName="password" placeholder="password" value={userData?.password? userData.password : ''} onChange={e => handleChange(e)} />
+        <h2>{id? 'Editar' : 'Criar'} produto</h2>
+        <Input type="text" label="Nome" iconName="user" placeholder="name" value={productData? productData.name : ''} onChange={e => handleChange(e)} />
+        <Input type="text" label="Estoque" iconName="product" placeholder="stock" value={productData? productData.stock : ''} onChange={e => handleChange(e)} />
+        <Input type="text" label="Preço" iconName="price" placeholder="price" value={productData? productData.price : ''} onChange={e => handleChange(e)} />
+        <Input type="text" label="Descrição" iconName="description" placeholder="description" value={productData? productData.description : ''} onChange={e => handleChange(e)} />
+
+
         <ButtonComponent onClick={() => handleSave()}>Salvar</ButtonComponent>
 
     </div>
@@ -78,4 +86,4 @@ const UserEditor = (props: IProps) => {
   );
 };
 
-export default UserEditor;
+export default ProductEditor;

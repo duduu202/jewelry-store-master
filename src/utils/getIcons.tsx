@@ -1,4 +1,5 @@
 
+import { ImPriceTag } from 'react-icons/im';
 import { MdPerson, MdEmail, MdLock, MdLocationPin, MdLocalOffer, MdOutlineCreditCard, MdContacts, MdPhone, MdOutlineCalendarToday, MdShoppingBasket, MdShortText } from 'react-icons/md';
 
 function Icon(props: any) {
@@ -33,6 +34,9 @@ function Icon(props: any) {
       break;
     case 'card': // usar para os campos do cartão
       iconComponent = <MdOutlineCreditCard color={props.color} size={18}/>;
+      break;
+    case 'price':
+      iconComponent = <ImPriceTag color={props.color} size={18}/>;
       break;
     case 'product': // usar para os campos do cadastro de produtos
       iconComponent = <MdShoppingBasket color={props.color} size={18}/>;

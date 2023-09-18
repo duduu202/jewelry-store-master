@@ -13,6 +13,8 @@ import UserEditPage from "./UserEditor";
 import UserEditor from "./UserEditor";
 import { ModalContent } from "../../../components/Modal/styles";
 import handleError from "../../../utils/message";
+import { ButtonComponent, ButtonText } from "../../../components/Button/styles";
+import { FaChartPie } from "react-icons/fa";
 
 
 const route = '/user';
@@ -91,8 +93,8 @@ const UserListPage = () => {
                             id: item.id,
                             items: [item.name, item.email, item.CPF? item.CPF.slice(0,3) + "." + item.CPF.slice(3,6) + "." + item.CPF.slice(6,9) + "-" + item.CPF.slice(9,11) : "Não informado", 
                                 <div>
-                                    <button onClick={() => handleDelete(item.id)}>Excluir</button>
-                                    <button onClick={() => handleEdit(item.id)}>Editar</button>
+                                    <ButtonComponent onClick={() => handleDelete(item.id)}>Excluir</ButtonComponent>
+                                    <ButtonComponent onClick={() => handleEdit(item.id)}>Editar</ButtonComponent>
                                 </div>
 
                         ]
@@ -104,11 +106,10 @@ const UserListPage = () => {
                         </ModalContent>
                     </Modal>
 
+                    <ButtonComponent onClick={() => handleCreate()}>Criar</ButtonComponent>
                 </div>
-
-
             )}
-            <button onClick={() => handleCreate()}>Criar</button>
+  
 
         </Container>
       </PageContainer>

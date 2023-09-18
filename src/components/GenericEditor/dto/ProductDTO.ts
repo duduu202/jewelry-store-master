@@ -3,7 +3,7 @@ export interface IProductDTO {
     price:  string;
     stock:  string;
     name:  string;
-    description?:  string;
+    description:  string;
     image: string;
     updated_at:  string;
     stock_available: string;
