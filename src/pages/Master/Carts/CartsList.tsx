@@ -164,6 +164,7 @@ function getOptions(status: Cart_status){
     if(status == Cart_status.APROVADA){
         return (
             <>
+                <option value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
                 <option value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
             </>
         )
@@ -171,6 +172,7 @@ function getOptions(status: Cart_status){
     if(status == Cart_status.EM_TRANSITO){
         return (
             <>
+                <option value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
                 <option value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
                 <option value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
             </>
@@ -180,6 +182,7 @@ function getOptions(status: Cart_status){
     if(status == Cart_status.ENTREGUE){
         return (
             <>
+                <option value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
                 <option value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
             </>
         )
@@ -187,6 +190,7 @@ function getOptions(status: Cart_status){
     if(status == Cart_status.EM_TROCA){
         return (
             <>
+                <option value={Cart_status.EM_TROCA}>{formatStatus(Cart_status.EM_TROCA)}</option>
                 <option value={Cart_status.TROCA_AUTORIZADA}>{formatStatus(Cart_status.TROCA_AUTORIZADA)}</option>
             </>
         )
