@@ -62,9 +62,6 @@ const Editor = (props: IProps) => {
       return;
     }
     console.log("productData", productData)
-    if(productData.image){
-      delete productData.image;
-    }
     try {
       props.handleSave(productData);
     } catch (error) {

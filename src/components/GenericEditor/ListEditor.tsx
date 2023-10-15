@@ -59,33 +59,43 @@ const ListEditor = (props: IProps) => {
     }
 
     const handleSave = async (object: any) => {
-
-        // we can only save the keys that are in the objectKeys
-
-        const result: any = {};
-
+        const formData = new FormData();
+      
+        // Adicione os parâmetros do objeto (exceto a imagem) ao formData
         for (const key in props.objectKeys) {
-            if (Object.prototype.hasOwnProperty.call(props.objectKeys, key)) {
-                const element = props.objectKeys[key];
-                result[key] = object[key];
-            }
+          if (Object.prototype.hasOwnProperty.call(props.objectKeys, key)) {
+            formData.append(key, object[key]);
+          }
         }
-
-        try{
-            if(object.id){
-                await api.put(route + `/${object.id}`, result);
-            }
-            else{
-                await api.post(route, result);
-            }
+      
+        // Adicione a imagem ao formData
+        formData.append('image', object.image);
+      
+        try {
+          if (object.id) {
+            // Se o objeto já possui um ID, é uma atualização (método PUT)
+            await api.put(route + `/${object.id}`, formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+          } else {
+            // Se não possui ID, é uma criação (método POST)
+            await api.post(route, formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+          }
         } catch (error) {
-            handleError(error);
+          handleError(error);
         }
-        
+      
+        // Atualize os dados e feche o modal como antes
         const { data } = await api.get(route);
         setData(data.results);
         setIsOpenModal(false);
-    }
+      };
 
 
     const [editingUserId, setEditingUserId] = useState<string | undefined>(undefined);
