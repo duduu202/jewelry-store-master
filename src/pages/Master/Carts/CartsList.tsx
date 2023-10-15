@@ -10,11 +10,12 @@ import GenericList from "../../../components/GenericList/GenericList";
 import { User } from "../../../hooks/useAuth";
 import { Modal } from "../../../components/Modal/Modal";
 import { ModalContent } from "../../../components/Modal/styles";
-import handleError from "../../../utils/message";
+import handleError, { handleSuccess } from "../../../utils/message";
 import UserEditor from "../User/UserEditor";
-import { ICartDTO } from "./dto/CartDTO";
+import { Cart_status, ICartDTO } from "./dto/CartDTO";
 import { ButtonComponent } from "../../../components/Button/styles";
 import ListEditor from "../../../components/GenericEditor/ListEditor";
+import isIsoDate from "../../../utils/checkIsoDate";
 
 
 const route = '/cart';
@@ -60,6 +61,22 @@ const CartsListPage = () => {
         setIsOpenModal(false);
     }
 
+    const handlePatchSave = async (cart: ICartDTO) => {
+        try{
+            if(cart.id){
+                await api.patch(route + `/${cart.id}`, {
+                    status: cart.status
+                });
+            }
+        }
+        catch (error) {
+            handleError(error);
+        }
+
+        handleSuccess("Status do pedido atualizado com sucesso!");
+
+    }
+
 
     const [editingUserId, setEditingUserId] = useState<string | undefined>(undefined);
     const [ isOpenModal, setIsOpenModal ] = useState(false);
@@ -85,10 +102,34 @@ const CartsListPage = () => {
         <Container>
         <h1>Pedidos</h1>
         <h1>Produtos</h1>
-            <ListEditor route={route} objectKeys={{
-                status: 'Status',
-                total_price: 'Valor Total',
-            }} ></ListEditor>
+        <GenericList
+                column_names={["Items", "Status", "Valor Total", "Data"]}
+                data={data?.map((item) => {
+                  return {
+                    id: item.id,
+                    // items: [item.name, item.stock, item.image ? <img src={item.image} alt="imagem" width="100px" height="100px"/> : <></>, item.price ? item.price : <></>,
+                    items: [
+                      item.cart_items
+                        ?.map((itm) => itm.product.name)
+                        .join(", ") || "",
+                        // cart.status, select with default value of cart.status, the options are Cart_status enum
+                        <select name="status" id="status" defaultValue={item.status} onChange={(e) => {
+                            const cart = item;
+                            cart.status = e.target.value as Cart_status;
+                            handlePatchSave(cart);
+                        }
+                        }>
+                            {getOptions(item.status as Cart_status)}
+                        </select>,
+ 
+                      item.total_price,
+                      isIsoDate(item.updated_at)
+                        ? new Date(item.updated_at).toLocaleDateString()
+                        : "",
+                    ],
+                  };
+                })}
+              />
         {/* {loading ? (
             <p>Carregando...</p>
             ) : (
@@ -117,6 +158,77 @@ const CartsListPage = () => {
         </Container>
       </PageContainer>
     );
+}
+
+function getOptions(status: Cart_status){
+    if(status == Cart_status.APROVADA){
+        return (
+            <>
+                <option value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
+            </>
+        )
+    }
+    if(status == Cart_status.EM_TRANSITO){
+        return (
+            <>
+                <option value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
+                <option value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+            </>
+            
+        )
+    }
+    if(status == Cart_status.ENTREGUE){
+        return (
+            <>
+                <option value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
+            </>
+        )
+    }
+    if(status == Cart_status.EM_TROCA){
+        return (
+            <>
+                <option value={Cart_status.TROCA_AUTORIZADA}>{formatStatus(Cart_status.TROCA_AUTORIZADA)}</option>
+            </>
+        )
+    }
+    if(status == Cart_status.EM_PROCESSAMENTO){
+        return (
+            <>
+                <option value={Cart_status.EM_PROCESSAMENTO}>{formatStatus(Cart_status.EM_PROCESSAMENTO)}</option>
+            </>
+        )
+    }
+
+    return (
+        <>
+            <option value={status}>{formatStatus(status)}</option>
+        </>
+    )
+}
+
+function formatStatus(status: Cart_status){
+    if(status == Cart_status.APROVADA){
+        return "Aprovada"
+    }
+    if(status == Cart_status.EM_PROCESSAMENTO){
+        return "Em processamento"
+    }
+    if(status == Cart_status.EM_TRANSITO){
+        return "Em trânsito"
+    }
+    if(status == Cart_status.EM_TROCA){
+        return "Em troca"
+    }
+    if(status == Cart_status.ENTREGUE){
+        return "Entregue"
+    }
+    if(status == Cart_status.REPROVADA){
+        return "Reprovada"
+    }
+    if(status == Cart_status.TROCA_AUTORIZADA){
+        return "Trocado"
+    }
+    return status;
 }
 
 //const CartsListPage = async () => {

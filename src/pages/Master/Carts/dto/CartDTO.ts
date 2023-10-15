@@ -27,3 +27,14 @@ export interface ICartDTO {
     discount: number;
     total_price: number;
   }
+
+export enum Cart_status {
+  EM_PROCESSAMENTO = 'EM_PROCESSAMENTO',
+  EM_TRANSITO = 'EM_TRANSITO',
+  ENTREGUE = 'ENTREGUE',
+  EM_TROCA = 'EM_TROCA',
+  TROCA_AUTORIZADA = 'TROCA_AUTORIZADA',
+  REPROVADA = 'REPROVADA',
+  APROVADA = 'APROVADA'
+};
+  
