@@ -75,6 +75,10 @@ const CartsListPage = () => {
 
         handleSuccess("Status do pedido atualizado com sucesso!");
 
+        const { data } = await api.get(route);
+        setData(data.results);
+        
+
     }
 
 
@@ -165,16 +169,26 @@ function getOptions(status: Cart_status){
         return (
             <>
                 <option value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
-                <option value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
+                <option value={Cart_status.EM_PROCESSAMENTO}>{formatStatus(Cart_status.EM_PROCESSAMENTO)}</option>
+                
+                <option disabled={true} value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
+                <option disabled={true} value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
+                <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.EM_TROCA}>{formatStatus(Cart_status.EM_TROCA)}</option>
+                <option disabled={true} value={Cart_status.TROCA_AUTORIZADA}>{formatStatus(Cart_status.TROCA_AUTORIZADA)}</option>
             </>
         )
     }
     if(status == Cart_status.EM_TRANSITO){
         return (
             <>
+                <option value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.EM_PROCESSAMENTO}>{formatStatus(Cart_status.EM_PROCESSAMENTO)}</option>
                 <option value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
                 <option value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
-                <option value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.EM_TROCA}>{formatStatus(Cart_status.EM_TROCA)}</option>
+                <option disabled={true} value={Cart_status.TROCA_AUTORIZADA}>{formatStatus(Cart_status.TROCA_AUTORIZADA)}</option>
             </>
             
         )
@@ -182,14 +196,24 @@ function getOptions(status: Cart_status){
     if(status == Cart_status.ENTREGUE){
         return (
             <>
-                <option value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
+                <option value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.EM_PROCESSAMENTO}>{formatStatus(Cart_status.EM_PROCESSAMENTO)}</option>
                 <option value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
+                <option value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
+                <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.EM_TROCA}>{formatStatus(Cart_status.EM_TROCA)}</option>
+                <option disabled={true} value={Cart_status.TROCA_AUTORIZADA}>{formatStatus(Cart_status.TROCA_AUTORIZADA)}</option>
             </>
         )
     }
     if(status == Cart_status.EM_TROCA){
         return (
             <>
+                <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.EM_PROCESSAMENTO}>{formatStatus(Cart_status.EM_PROCESSAMENTO)}</option>
+                <option disabled={true} value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
+                <option disabled={true} value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
+                <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
                 <option value={Cart_status.EM_TROCA}>{formatStatus(Cart_status.EM_TROCA)}</option>
                 <option value={Cart_status.TROCA_AUTORIZADA}>{formatStatus(Cart_status.TROCA_AUTORIZADA)}</option>
             </>
@@ -198,7 +222,13 @@ function getOptions(status: Cart_status){
     if(status == Cart_status.EM_PROCESSAMENTO){
         return (
             <>
+                <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
                 <option value={Cart_status.EM_PROCESSAMENTO}>{formatStatus(Cart_status.EM_PROCESSAMENTO)}</option>
+                <option disabled={true} value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
+                <option disabled={true} value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
+                <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.EM_TROCA}>{formatStatus(Cart_status.EM_TROCA)}</option>
+                <option disabled={true} value={Cart_status.TROCA_AUTORIZADA}>{formatStatus(Cart_status.TROCA_AUTORIZADA)}</option>
             </>
         )
     }
