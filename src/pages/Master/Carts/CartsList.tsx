@@ -171,7 +171,7 @@ function getOptions(status: Cart_status){
                 <option value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
                 <option value={Cart_status.EM_PROCESSAMENTO}>{formatStatus(Cart_status.EM_PROCESSAMENTO)}</option>
                 
-                <option disabled={true} value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
+                <option value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
                 <option disabled={true} value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
                 <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
                 <option disabled={true} value={Cart_status.EM_TROCA}>{formatStatus(Cart_status.EM_TROCA)}</option>
@@ -216,6 +216,19 @@ function getOptions(status: Cart_status){
                 <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
                 <option value={Cart_status.EM_TROCA}>{formatStatus(Cart_status.EM_TROCA)}</option>
                 <option value={Cart_status.TROCA_AUTORIZADA}>{formatStatus(Cart_status.TROCA_AUTORIZADA)}</option>
+            </>
+        )
+    }
+    if(status == Cart_status.TROCA_AUTORIZADA){
+        return (
+            <>
+                <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.EM_PROCESSAMENTO}>{formatStatus(Cart_status.EM_PROCESSAMENTO)}</option>
+                <option disabled={true} value={Cart_status.EM_TRANSITO}>{formatStatus(Cart_status.EM_TRANSITO)}</option>
+                <option disabled={true} value={Cart_status.ENTREGUE}>{formatStatus(Cart_status.ENTREGUE)}</option>
+                <option disabled={true} value={Cart_status.APROVADA}>{formatStatus(Cart_status.APROVADA)}</option>
+                <option disabled={true} value={Cart_status.EM_TROCA}>{formatStatus(Cart_status.EM_TROCA)}</option>
+                <option disabled={true} value={Cart_status.TROCA_AUTORIZADA}>{formatStatus(Cart_status.TROCA_AUTORIZADA)}</option>
             </>
         )
     }

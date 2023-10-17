@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import axios, { AxiosError } from 'axios';
 
 const isBackEndError = (err: any): err is AxiosError<{ message: string }> => {
-  if (err.response.data) {
+  if (err?.response?.data) {
     return true;
   }
   return false;
