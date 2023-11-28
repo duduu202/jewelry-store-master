@@ -40,8 +40,8 @@ export const LineChart = ({ data, setEstabelecimentoGraphicIndex }: Props) => {
       }, 0);
       return highest > acc ? highest : acc;
     }, 0);
-    console.log("highestValue", highestValue);
-    return highestValue ;
+
+    return highestValue + 10;
   }
   return (
     <Line

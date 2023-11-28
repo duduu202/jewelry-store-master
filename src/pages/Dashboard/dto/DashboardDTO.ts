@@ -5,5 +5,6 @@ export interface IData {
   
   export interface IGroupData {
     name: string;
+    color?: string;
     datas: IData[];
   }
