@@ -12,6 +12,8 @@ import { ButtonComponent } from "../Button/styles";
 import { Modal } from "../Modal/Modal";
 import { ModalContent } from "../Modal/styles";
 import Editor from "./Editor";
+import { LoadingAnimation } from "../../styles/style";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 
 interface IProps {
@@ -28,7 +30,7 @@ interface IProps {
      * }
      */
     objectKeys: {
-      [key: string]: string;
+      [key: string]: any;
     }
 }
 
@@ -119,7 +121,9 @@ const ListEditor = (props: IProps) => {
     return (
         <div>
         {loading ? (
-            <p>Carregando...</p>
+              <LoadingAnimation>
+                <AiOutlineLoading3Quarters/>
+              </LoadingAnimation>
             ) : (
                 <div>
                     {/* <GenericList column_names={['Nome', "Estoque", "Imagem", "Preço" ,"Ações"]} data={data?.map((item) =>{ */}
@@ -130,6 +134,12 @@ const ListEditor = (props: IProps) => {
                             items: Object.keys(props.objectKeys).map(key => {
                                 if(key === 'image'){
                                     return item.image ? <img src={item.image} alt="imagem" width="100px" height="100px"/> : <></>
+                                }
+                                if(key === 'categories'){
+                                  console.log("keykeykeykey", key);
+                                    return item.categories.map((category: any) => {
+                                        return category.name;
+                                    }).join(", ");
                                 }
                                 else{
                                     return item[key];

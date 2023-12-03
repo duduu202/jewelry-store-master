@@ -14,10 +14,15 @@ import {
   } from 'chart.js'
 
 interface Props {
+  title: string;
   data: ChartData<"line">;
   setEstabelecimentoGraphicIndex: (index: number) => void;
 }
+
+console.log("CategoryScale",LinearScale)
 ChartJS.register(
+  Title,
+  Legend,
   CategoryScale,
   LinearScale,
   Tooltip,
@@ -25,7 +30,7 @@ ChartJS.register(
   LineElement
 );
 
-export const LineChart = ({ data, setEstabelecimentoGraphicIndex }: Props) => {
+export const LineChart = ({ title, data, setEstabelecimentoGraphicIndex }: Props) => {
   const chartRef = useRef();
   const onClickProductChart = (event: any) => {
     if (chartRef.current) {
@@ -51,7 +56,7 @@ export const LineChart = ({ data, setEstabelecimentoGraphicIndex }: Props) => {
       ref={chartRef}
       options={{
         // maintainAspectRatio: false,
-        backgroundColor: "#111111",
+        backgroundColor: "rgba(185, 185, 185, 0.1)",
         responsive: true,
         scales: {
           x: {
@@ -69,17 +74,18 @@ export const LineChart = ({ data, setEstabelecimentoGraphicIndex }: Props) => {
             },
             ticks: {
               includeBounds: false,
-              stepSize: 50,
+              stepSize: 5,
             },
           },
         },
         plugins: {
           legend: {
             position: "top" as const,
+
           },
           title: {
-            display: false,
-            text: "Chart.js Bar Chart",
+            display: true,
+            text: title,
           },
         },
       }}

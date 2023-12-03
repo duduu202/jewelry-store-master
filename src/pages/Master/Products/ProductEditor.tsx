@@ -77,6 +77,8 @@ const ProductEditor = (props: IProps) => {
         <Input type="text" label="Estoque" iconName="product" placeholder="stock" value={productData? productData.stock : ''} onChange={e => handleChange(e)} />
         <Input type="text" label="Preço" iconName="price" placeholder="price" value={productData? productData.price : ''} onChange={e => handleChange(e)} />
         <Input type="text" label="Descrição" iconName="description" placeholder="description" value={productData? productData.description : ''} onChange={e => handleChange(e)} />
+        {/* categories can be multiple texts */}
+        <Input type="text" label="Categorias" iconName="categories" placeholder="categories" value={productData? productData.categories : ''} onChange={e => handleChange(e)} />
 
 
         <ButtonComponent onClick={() => handleSave()}>Salvar</ButtonComponent>

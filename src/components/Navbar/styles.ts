@@ -15,7 +15,7 @@ const fadeIn = keyframes`
 `;
 
 export const NavbarContainer = styled.div<NavbarProps>`
-  width: ${({ isOpen }) => isOpen ? '17.8rem' : '4.5rem'};
+  width: 12.8rem;
   height: 100vh;
   background-color: ${(props) => props.theme.colors.background};
 
@@ -23,6 +23,12 @@ export const NavbarContainer = styled.div<NavbarProps>`
   flex-direction: column;
   justify-content: space-between;
   transition: all 0.3s ease-in-out;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  /* box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5); */
 `;
 
 export const Icon = styled.button<NavbarProps>`

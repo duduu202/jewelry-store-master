@@ -5,7 +5,7 @@ import { IPaginatedResponse } from "../../../Interfaces/IPaginatedResponse";
 import api from "../../../services/api";
 import { PageContainer } from "../../Home/styles";
 import Navbar from "../../../components/Navbar/Navbar";
-import { Container } from "../../../styles/style";
+import { Container, LoadingAnimation, PageTitle } from "../../../styles/style";
 import GenericList from "../../../components/GenericList/GenericList";
 import { User } from "../../../hooks/useAuth";
 import { Modal } from "../../../components/Modal/Modal";
@@ -15,6 +15,7 @@ import { ModalContent } from "../../../components/Modal/styles";
 import handleError from "../../../utils/message";
 import { ButtonComponent, ButtonText } from "../../../components/Button/styles";
 import { FaChartPie } from "react-icons/fa";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 
 const route = '/user';
@@ -83,9 +84,11 @@ const UserListPage = () => {
       <PageContainer>
         <Navbar />
         <Container>
-        <h1>Usuários</h1>
+        {/* <PageTitle>Usuários</PageTitle> */}
         {loading ? (
-            <p>Carregando...</p>
+                <LoadingAnimation>
+                    <AiOutlineLoading3Quarters/>
+                </LoadingAnimation>
             ) : (
                 <div>
                     <GenericList column_names={['Nome', "E-mail", "CPF", "Ações"]} data={data?.map((item) =>{

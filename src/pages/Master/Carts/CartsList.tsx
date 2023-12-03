@@ -5,7 +5,7 @@ import { IPaginatedResponse } from "../../../Interfaces/IPaginatedResponse";
 import api from "../../../services/api";
 import { PageContainer } from "../../Home/styles";
 import Navbar from "../../../components/Navbar/Navbar";
-import { Container } from "../../../styles/style";
+import { Container, LoadingAnimation, PageTitle } from "../../../styles/style";
 import GenericList from "../../../components/GenericList/GenericList";
 import { User } from "../../../hooks/useAuth";
 import { Modal } from "../../../components/Modal/Modal";
@@ -16,6 +16,7 @@ import { Cart_status, ICartDTO } from "./dto/CartDTO";
 import { ButtonComponent } from "../../../components/Button/styles";
 import ListEditor from "../../../components/GenericEditor/ListEditor";
 import isIsoDate from "../../../utils/checkIsoDate";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 
 const route = '/cart';
@@ -104,36 +105,42 @@ const CartsListPage = () => {
       <PageContainer>
         <Navbar />
         <Container>
-        <h1>Pedidos</h1>
-        <h1>Produtos</h1>
-        <GenericList
-                column_names={["Items", "Status", "Valor Total", "Data"]}
-                data={data?.map((item) => {
-                  return {
-                    id: item.id,
-                    // items: [item.name, item.stock, item.image ? <img src={item.image} alt="imagem" width="100px" height="100px"/> : <></>, item.price ? item.price : <></>,
-                    items: [
-                      item.cart_items
-                        ?.map((itm) => itm.product.name)
-                        .join(", ") || "",
-                        // cart.status, select with default value of cart.status, the options are Cart_status enum
-                        <select name="status" id="status" defaultValue={item.status} onChange={(e) => {
-                            const cart = item;
-                            cart.status = e.target.value as Cart_status;
-                            handlePatchSave(cart);
-                        }
-                        }>
-                            {getOptions(item.status as Cart_status)}
-                        </select>,
- 
-                      item.total_price,
-                      isIsoDate(item.updated_at)
-                        ? new Date(item.updated_at).toLocaleDateString()
-                        : "",
-                    ],
-                  };
-                })}
-              />
+
+        {loading ? (
+              <LoadingAnimation>
+                <AiOutlineLoading3Quarters/>
+              </LoadingAnimation>
+            ) : (
+                <GenericList
+                    column_names={["Items", "Status", "Valor Total", "Data"]}
+                    data={data?.map((item) => {
+                      return {
+                        id: item.id,
+                        // items: [item.name, item.stock, item.image ? <img src={item.image} alt="imagem" width="100px" height="100px"/> : <></>, item.price ? item.price : <></>,
+                        items: [
+                          item.cart_items
+                            ?.map((itm) => itm.product.name)
+                            .join(", ") || "",
+                            // cart.status, select with default value of cart.status, the options are Cart_status enum
+                            <select name="status" id="status" defaultValue={item.status} onChange={(e) => {
+                                const cart = item;
+                                cart.status = e.target.value as Cart_status;
+                                handlePatchSave(cart);
+                            }
+                            }>
+                                {getOptions(item.status as Cart_status)}
+                            </select>,
+    
+                          item.total_price,
+                          isIsoDate(item.updated_at)
+                            ? new Date(item.updated_at).toLocaleDateString()
+                            : "",
+                        ],
+                      };
+                    })}
+                />
+            )
+        }
         {/* {loading ? (
             <p>Carregando...</p>
             ) : (

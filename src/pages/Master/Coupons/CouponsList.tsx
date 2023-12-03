@@ -5,7 +5,7 @@ import { IPaginatedResponse } from "../../../Interfaces/IPaginatedResponse";
 import api from "../../../services/api";
 import { PageContainer } from "../../Home/styles";
 import Navbar from "../../../components/Navbar/Navbar";
-import { Container } from "../../../styles/style";
+import { Container, PageTitle } from "../../../styles/style";
 import GenericList from "../../../components/GenericList/GenericList";
 import { User } from "../../../hooks/useAuth";
 import { Modal } from "../../../components/Modal/Modal";
@@ -86,7 +86,7 @@ const ProductsListPage = () => {
       <PageContainer>
         <Navbar />
         <Container>
-        <h1>Produtos</h1>
+        {/* <PageTitle>Cupons</PageTitle> */}
             <ListEditor route={route} objectKeys={{
                 name: "Nome",
                 stock: "Estoque",

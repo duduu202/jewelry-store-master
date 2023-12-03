@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import Chart from "chart.js/auto";
+import Chart, { ChartDataset } from "chart.js/auto";
 import Navbar from "../../components/Navbar/Navbar";
 import { Container } from "../../styles/style";
 import { PageContainer } from "./styles";
-import { IGroupData } from "./dto/DashboardDTO";
+import { IGroupDTO, IRequestDashboard, IResponseDashboard } from "./dto/DashboardDTO";
 import { LineChart } from "../../components/LineChart/LineChart";
 import api from "../../services/api";
 import { IPaginatedResponse } from "../../Interfaces/IPaginatedResponse";
+import { Point } from "chart.js/dist/core/core.controller";
+import { GroupCategories } from "../../components/GroupCategories/GroupCategories";
 
 const route = "/dashboard";
 
 const DashboardPage = () => {
   const chartRef = useRef(null);
-  const [ data, setData ] = useState<IGroupData[]>();
+  const [ data, setData ] = useState<IResponseDashboard[]>();
 
 
   // const start_month = new Date();
@@ -31,26 +33,36 @@ const DashboardPage = () => {
   const [ startDate, setStartDate ] = useState<Date>(start_month);
   const [ endDate, setEndDate ] = useState<Date>(end_month);
   const [ categories, setCategories ] = useState<string[]>();
-  const [ selectedCategories, setSelectedCategories ] = useState<string[]>(['ouro', 'prata']);
+  const [ selectedGroups, setSelectedGroups ] = useState<IGroupDTO[]>([{
+    categories: ['ouro', 'anel']
+  },{
+    categories: ['prata', 'anel']
+  }]);
 
   const [ loading, setLoading ] = useState(true);
 
-  const getDataSets = () => {
-    if (!data) return [];
-    return data?.map((item) => {
+  const getDataSets = ():ChartDataset<'line', (number | Point | null)[]>[] => {
+    if (!data) {
+      return [{
+        label: '',
+        data: [],
+        borderColor: '',
+        tension: 0.1,
+      }]
+    };
+    const chart =  data?.map((item) => {
       return {
-        label: item.name,
+        label: item.categories.join(', '),
         data: item.datas.map((item) => {
           console.log(item.quantity);
           return item.quantity;
         }),
-        
-        fill: false,
         borderColor: item.color,
-        tension: 0.1
-
+        tension: 0.1,
       }
     });
+
+    return chart;
   }
 
   // handle start date
@@ -78,8 +90,8 @@ const DashboardPage = () => {
       }
     }
 
-    console.log("selectedCategoriesList",list)
-    setSelectedCategories(list);
+    console.log("selectedGroupsList",list)
+    setSelectedGroups(list);
   }
 
   const getLabels = () => {
@@ -152,18 +164,21 @@ const DashboardPage = () => {
   }, [
     startDate,
     endDate,
-    selectedCategories
+    selectedGroups
   ]);
 
   const refetchData = () => {
-    console.log("refetching data", selectedCategories);
+    console.log("refetching data", selectedGroups);
     const fetchData = async () => {
-        const { data } = await api.get<IGroupData[]>(route, {
+      const request: IRequestDashboard = {
+        end_date: endDate.toISOString(),
+        start_date: startDate.toISOString(),
+        groups: selectedGroups,
+        division_split: getLabels().length
+      }
+        const { data } = await api.get<IResponseDashboard[]>(route, {
           params: {
-            division_split: getLabels().length,
-            start_date: startDate.toISOString(),
-            end_date: endDate.toISOString(),
-            categories: selectedCategories
+            ...request
           }
         });
           //+'?division_split=12&start_date=2023-01-01T00:00:00.000Z&end_date=2023-12-01T00:00:00.000Z&categories[]=prata&categories[]=ouro');
@@ -189,7 +204,12 @@ const DashboardPage = () => {
         setLoading(false);
     }
     fetchData();
-}, []);
+  }, []);
+
+
+  const addGroup = (group: IGroupDTO) => {
+    setSelectedGroups([...selectedGroups, group]);
+  }
 
   return (
     <PageContainer>
@@ -202,38 +222,15 @@ const DashboardPage = () => {
           <label htmlFor="end_date">Data final</label>
           <input type="date" id="end_date" name="end_date" value={endDate.toISOString().split('T')[0]} onChange={handleEndDate} />
         </div>
-        <div>
-          <label htmlFor="categories">Categorias</label>
-          <select name="categories" id="categories" multiple onChange={handleCategories}>
-            {categories?.map((item) => {
-              return (
-                <option value={item}>{item}</option>
-              )
-            })}
-          </select>
-        </div>
-        <div>
-            {/*
-            colors:
-            */}
-            {
-              data?.map((item) => {
-                return (
-                  <div style={{display: 'flex', alignItems: 'center'}}>
-                    <div style={{width: 20, height: 20, backgroundColor: item.color, marginRight: 10}}></div>
-                    <span>{item.name}</span>
-                  </div>
-                )
-              })
-            }
 
-          </div>
+        <GroupCategories/>
+
         {loading ? (
           <div>Carregando...</div>
         ) : (
           <div>
           <LineChart 
-          
+          title="Vendas"
           data={
             {
               labels: getLabels(),

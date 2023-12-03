@@ -34,12 +34,12 @@ const Navbar = () => {
     <NavbarContainer isOpen={isExpanded}>
       <div>
         <NavbarHeader>
-          <NavbarLogo isOpen={isExpanded} src={logo} alt="logotipo fale mais voip" />
+          <NavbarLogo isOpen={isExpanded} src={logo} alt="logotipo" />
         </NavbarHeader>
 
-        <Icon type="button" onClick={() => setIsExpanded(props => !props)} isOpen={isExpanded}>
+        {/* <Icon type="button" onClick={() => setIsExpanded(props => !props)} isOpen={isExpanded}>
           {isExpanded ? <ImArrowLeft2 className="arrow" size={12} /> : <ImArrowRight2 className="arrow" size={12} />}
-        </Icon>
+        </Icon> */}
 
         <NavbarMenu>
           <NavbarMenuItem to="/dashboard" isOpen={isExpanded}>

@@ -7,4 +7,5 @@ export interface IProductDTO {
     image: string;
     updated_at:  string;
     stock_available: string;
+    categories: string[];
 }

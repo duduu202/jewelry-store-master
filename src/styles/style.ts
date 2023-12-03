@@ -51,8 +51,43 @@ const Item = styled.li`
 
 const Container = styled.div`
   width: 100%;
-  padding: 0.5rem;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; /* Para adicionar uma barra de rolagem se o conteúdo for maior que a altura do contêiner */
+`;
 
+export const PageTitle = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: ${(props) => props.theme.colors.primary_dark};
+  display: inline-block;
+
+  margin: 0 auto;
+  text-align: center;
+
+  background-color: ${(props) => props.theme.colors.background};
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+
+`;
+
+export const LoadingAnimation = styled.div`
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    color: ${(props) => props.theme.colors.primary_dark};
+    font-size: 2rem;
+    font-weight: 600;
+    animation: rotate 2s linear infinite;
+    @keyframes rotate {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    position: absolute;
+    left: 50%;
+    top: 50%;
 `;
 
 
