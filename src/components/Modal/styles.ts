@@ -13,13 +13,22 @@ export const ModalOverlay = styled.div<{ isOpen: boolean }>`
 
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+
 `;
 export const ModalContent = styled.div`
   background-color: ${(props) => props.theme.colors.background};
+  color: ${(props) => props.theme.colors.default};
+  
   margin: 10% auto;
   padding: 1rem;
-  // text color black
-  color: ${(props) => props.theme.colors.default};
+  width: 50%;
 
-  width: 40%;
+  border-radius: 0.5rem;
 `;
+
+export const ModalContent2 = styled.div`
+  margin: 0 auto;
+  align-items: center;
+`;
+
+

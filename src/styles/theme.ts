@@ -5,7 +5,7 @@ export const theme = {
     background: "#3a3a3a",
     primary_dark: "#00f6ff",
     secondary: "#ffffff",
-    light_font: "#d5e8ff",
+    light_font: "#f2f8ff",
     dark_font: "#141414",
     grayBackground: "#F1F2F6",
     error: "#FF3333",

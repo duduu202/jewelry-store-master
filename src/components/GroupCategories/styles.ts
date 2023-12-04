@@ -1,25 +1,30 @@
 import styled, { keyframes } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-// with isOpen prop, we can control the visibility of the modal
-export const ModalOverlay = styled.div<{ isOpen: boolean }>`
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-
-  inset: 0 0 0 0;
-
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-`;
-export const ModalContent = styled.div`
+export const GroupCell = styled.td`
   background-color: ${(props) => props.theme.colors.background};
-  margin: 10% auto;
-  padding: 1rem;
-  // text color black
-  color: ${(props) => props.theme.colors.default};
+  padding: 0.25rem;
+  // text color
+  color: ${(props) => props.theme.colors.light_font};
+  border-color: ${(props) => props.theme.colors.background};
+  border: 1px solid ${(props) => props.theme.colors.primary};
+  border-radius: 0.5rem;
+  
+`;
 
-  width: 40%;
+export const GroupContainer = styled.div`
+  background-color: ${(props) => props.theme.colors.background};
+  display: flex;
+  width: fit-content;
+  min-width: 100px;
+  border-radius: 0.5rem;
+  
+  align-items: center;
+  justify-content: center;
+  margin: 0.25rem;
+   
+  // create space between children
+  & > * {
+    margin: 0.25rem;
+  }
 `;

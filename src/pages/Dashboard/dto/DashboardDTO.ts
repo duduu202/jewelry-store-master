@@ -7,6 +7,7 @@ export interface IRequestDashboard {
   /** each group of categories will be a line in the chart */
   groups: IGroupDTO[];
   division_split?: number;
+  all_sales: boolean;
 }
 export interface IResponseDashboard {
   categories: string[];

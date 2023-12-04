@@ -4,13 +4,13 @@ export const Container = styled.div`
   width: 100%;//20rem;
   height: 2.813rem;
 
-  margin: 0.85rem 0;
+  margin: 0.65rem 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   border: 2px solid ${({ theme }) => theme.colors.primary};
 
   outline: none;
@@ -33,7 +33,7 @@ export const InputComponent = styled.input`
   outline: none;
   border-radius: 0 0.75rem 0.75rem 0;
 
-  padding-left: .8rem;
+  padding-left: 0.8rem;
 
   background-color: ${({ theme }) => theme.colors.grayBackground};
   `;
@@ -46,6 +46,6 @@ export const InputWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
-    border-radius: 0.75rem 0 0 0.75rem;
+    border-radius: 0.5rem;
     background-color: ${({theme}) => theme.colors.grayBackground};
   `;

@@ -34,12 +34,17 @@ const DashboardPage = () => {
   const [ endDate, setEndDate ] = useState<Date>(end_month);
   const [ categories, setCategories ] = useState<string[]>();
   const [ selectedGroups, setSelectedGroups ] = useState<IGroupDTO[]>([{
-    categories: ['ouro', 'anel']
+    categories: ['ouro']
   },{
-    categories: ['prata', 'anel']
+    categories: ['prata']
   }]);
+  const [includeAllSales, setIncludeAllSales] = useState<boolean>(true);
 
   const [ loading, setLoading ] = useState(true);
+
+  const HandleChangeIncludeAllSales = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIncludeAllSales(event.target.checked);
+  }
 
   const getDataSets = ():ChartDataset<'line', (number | Point | null)[]>[] => {
     if (!data) {
@@ -164,7 +169,8 @@ const DashboardPage = () => {
   }, [
     startDate,
     endDate,
-    selectedGroups
+    selectedGroups,
+    includeAllSales
   ]);
 
   const refetchData = () => {
@@ -173,8 +179,12 @@ const DashboardPage = () => {
       const request: IRequestDashboard = {
         end_date: endDate.toISOString(),
         start_date: startDate.toISOString(),
-        groups: selectedGroups,
-        division_split: getLabels().length
+        groups: selectedGroups.map((item) => {
+          item.categories = item.categories.map((item) => item.toLowerCase());
+          return item;
+        }),
+        division_split: getLabels().length,
+        all_sales: includeAllSales
       }
         const { data } = await api.get<IResponseDashboard[]>(route, {
           params: {
@@ -207,8 +217,9 @@ const DashboardPage = () => {
   }, []);
 
 
-  const addGroup = (group: IGroupDTO) => {
-    setSelectedGroups([...selectedGroups, group]);
+  const HandleSaveGroups = (groups: IGroupDTO[]) => {
+    setSelectedGroups(groups);
+    refetchData();
   }
 
   return (
@@ -223,7 +234,13 @@ const DashboardPage = () => {
           <input type="date" id="end_date" name="end_date" value={endDate.toISOString().split('T')[0]} onChange={handleEndDate} />
         </div>
 
-        <GroupCategories/>
+        <GroupCategories selectedGroups={selectedGroups} onSaved={HandleSaveGroups} />
+
+        <div>
+          <input type="checkbox" id="include_all_sales" name="include_all_sales" checked={includeAllSales} onChange={HandleChangeIncludeAllSales} />
+          <label htmlFor="include_all_sales">Incluir todas as vendas</label>
+        </div>
+      
 
         {loading ? (
           <div>Carregando...</div>
