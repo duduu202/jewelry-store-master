@@ -61,9 +61,9 @@ export const GroupCategories = ({
 
     const HandleRemoveGroup = (group: IGroupDTO) => {
         const updatedGroups = groups.filter((item) => item !== group);
-        setGroups(updatedGroups);
+        setGroups(updatedGroups? updatedGroups : []);
         selectedGroups = updatedGroups;
-        onSaved?.(selectedGroups);
+        onSaved?.(updatedGroups? updatedGroups : []);
     }
 
     const HandleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, category: string) => {
@@ -183,6 +183,11 @@ export const GroupCategories = ({
                         <PlusButtonComponent width="100%"  
                         onClick={() => {
                             AddCategoryToNewGroup("");
+                            if(newGroup.categories.length === 0){
+                                setNewGroup({
+                                    categories: [categories[0]]
+                                });
+                            }
                         }}><span>+</span></PlusButtonComponent>
                     </GroupContainer>
                     <GroupContainer>

@@ -59,7 +59,6 @@ const DashboardPage = () => {
       return {
         label: item.categories.join(', '),
         data: item.datas.map((item) => {
-          console.log(item.quantity);
           return item.quantity;
         }),
         borderColor: item.color,
