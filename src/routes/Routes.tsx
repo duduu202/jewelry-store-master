@@ -13,6 +13,7 @@ import UserCreatePage from '../pages/Master/User/UserCreate';
 import ProductsListPage from '../pages/Master/Products/ProductsList';
 import CartsListPage from '../pages/Master/Carts/CartsList';
 import DashboardPage from '../pages/Dashboard/Dashboard';
+import CuponsListPage from '../pages/Master/Coupons/CouponsList';
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -30,7 +31,7 @@ const AppRoutes = () => {
           <Route path="/user" element={<UserListPage />} />
           <Route path="/product" element={<ProductsListPage />} />
           <Route path="/cart" element={<CartsListPage />} />
-          <Route path="/coupon" element={<CartsListPage />} />
+          <Route path="/coupon" element={<CuponsListPage />} />
           {/* <Route path="/users/edit/:id" element={<UserEditPage />} /> */}
           {/* <Route path="/users/create" element={<UserCreatePage />} /> */}
         </Route>

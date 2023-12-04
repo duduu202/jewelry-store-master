@@ -16,6 +16,7 @@ import handleError from "../../../utils/message";
 import { ButtonComponent, ButtonText } from "../../../components/Button/styles";
 import { FaChartPie } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import ListEditor from "../../../components/GenericEditor/ListEditor";
 
 
 const route = '/user';
@@ -90,27 +91,32 @@ const UserListPage = () => {
                     <AiOutlineLoading3Quarters/>
                 </LoadingAnimation>
             ) : (
-                <div>
-                    <GenericList column_names={['Nome', "E-mail", "CPF", "Ações"]} data={data?.map((item) =>{
-                        return {
-                            id: item.id,
-                            items: [item.name, item.email, item.CPF? item.CPF.slice(0,3) + "." + item.CPF.slice(3,6) + "." + item.CPF.slice(6,9) + "-" + item.CPF.slice(9,11) : "Não informado", 
-                                <div>
-                                    <ButtonComponent onClick={() => handleDelete(item.id)}>Excluir</ButtonComponent>
-                                    <ButtonComponent onClick={() => handleEdit(item.id)}>Editar</ButtonComponent>
-                                </div>
+                // <div>
+                //     <GenericList column_names={['Nome', "E-mail", "CPF", "Ações"]} data={data?.map((item) =>{
+                //         return {
+                //             id: item.id,
+                //             items: [item.name, item.email, item.CPF? item.CPF.slice(0,3) + "." + item.CPF.slice(3,6) + "." + item.CPF.slice(6,9) + "-" + item.CPF.slice(9,11) : "Não informado", 
+                //                 <div>
+                //                     <ButtonComponent onClick={() => handleDelete(item.id)}>Excluir</ButtonComponent>
+                //                     <ButtonComponent onClick={() => handleEdit(item.id)}>Editar</ButtonComponent>
+                //                 </div>
 
-                        ]
-                        }
-                    })}/>
-                    <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
-                        <ModalContent>
-                            <UserEditor handleSave={handleSave} id={editingUserId}/>
-                        </ModalContent>
-                    </Modal>
+                //         ]
+                //         }
+                //     })}/>
+                //     <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
+                //         <ModalContent>
+                //             <UserEditor handleSave={handleSave} id={editingUserId}/>
+                //         </ModalContent>
+                //     </Modal>
 
-                    <ButtonComponent onClick={() => handleCreate()}>Criar</ButtonComponent>
-                </div>
+                //     <ButtonComponent onClick={() => handleCreate()}>Criar</ButtonComponent>
+                // </div>
+                <ListEditor route={route} objectKeys={{
+                    name: "Nome",
+                    email: "E-mail",
+                    CPF: "CPF",
+                }} ></ListEditor>
             )}
   
 

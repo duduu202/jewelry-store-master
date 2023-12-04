@@ -62,6 +62,11 @@ const Navbar = () => {
             <FaShoppingCart className="icon" size={18} />
             <span>Pedidos</span>
           </NavbarMenuItem>
+
+          <NavbarMenuItem to="/coupon" isOpen={isExpanded}>
+            <FaShoppingCart className="icon" size={18} />
+            <span>Cupons</span>
+          </NavbarMenuItem>
 {/*  */}
           {/* <NavbarMenuItem to="/reports" isOpen={isExpanded}> */}
             {/* <BsFillFileEarmarkBarGraphFill className="icon" size={18} /> */}

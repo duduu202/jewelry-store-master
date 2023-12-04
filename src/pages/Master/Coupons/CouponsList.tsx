@@ -12,25 +12,25 @@ import { Modal } from "../../../components/Modal/Modal";
 import { ModalContent } from "../../../components/Modal/styles";
 import handleError from "../../../utils/message";
 import UserEditor from "../User/UserEditor";
-import { IProductDTO } from "./dto/ProductDTO";
+import { ICuponDTO } from "./dto/CuponDTO";
 import { ButtonComponent } from "../../../components/Button/styles";
-import ProductEditor from "./ProductEditor";
+import CuponEditor from "./CuponEditor";
 import ListPage from "../../../components/GenericEditor/ListEditor";
 import ListEditor from "../../../components/GenericEditor/ListEditor";
 
 
-const route = '/product';
+const route = '/coupon';
 
-const ProductsListPage = () => {
+const CuponsListPage = () => {
     //const { data } = await api.get('/user');
-    console.log('ProductsListPage')
-    const [ data, setData ] = useState<IProductDTO[]>();
+    console.log('CuponsListPage')
+    const [ data, setData ] = useState<ICuponDTO[]>();
     const [ loading, setLoading ] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
-            const { data } = await api.get<IPaginatedResponse<IProductDTO>>(route);
+            const { data } = await api.get<IPaginatedResponse<ICuponDTO>>(route);
             console.log("data", data.results);
             setData(data.results);
             setLoading(false);
@@ -44,9 +44,9 @@ const ProductsListPage = () => {
         setData(data.results);
     }
 
-    const handleSave = async (user: IProductDTO) => {
+    const handleSave = async (user: ICuponDTO) => {
         const { price, stock, name, description, ...rest } = user;
-        console.log("product",user)
+        console.log("Cupon",user)
         try{
             if(user.id){
                 await api.put(route + `/${user.id}`, {price, stock, name, description});
@@ -88,10 +88,9 @@ const ProductsListPage = () => {
         <Container>
         {/* <PageTitle>Cupons</PageTitle> */}
             <ListEditor route={route} objectKeys={{
-                name: "Nome",
-                stock: "Estoque",
-                image: "Imagem",
-                price: "Preço",
+                code: "Código",
+                quantity: "Quantidade",
+                discount: "Desconto",
             }} ></ListEditor>
         {/* {loading ? (
             <p>Carregando...</p>
@@ -111,7 +110,7 @@ const ProductsListPage = () => {
                     })}/>
                     <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
                         <ModalContent>
-                            <ProductEditor handleSave={handleSave} id={editingUserId}/>
+                            <CuponEditor handleSave={handleSave} id={editingUserId}/>
                         </ModalContent>
                     </Modal>
 
@@ -124,7 +123,7 @@ const ProductsListPage = () => {
     );
 }
 
-//const ProductsListPage = async () => {
+//const CuponsListPage = async () => {
 //    const { data } = await api.get('/user');
 //    console.log("data",data.results)
 //    return (
@@ -143,4 +142,4 @@ const ProductsListPage = () => {
 //    );
 //}
 
-export default ProductsListPage;
+export default CuponsListPage;
