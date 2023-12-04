@@ -35,6 +35,9 @@ const Editor = (props: IProps) => {
   const [productData, setProductData] = useState<any>();
   const [loading, setLoading] = useState(true);
 
+  // gambiarra
+  const [groups, setGroups] = useState<IGroupDTO[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       if(!id){
@@ -96,13 +99,7 @@ const Editor = (props: IProps) => {
           }
           if(key === 'categories'){
             return (
-              <GroupCategories selectedGroups={
-                productData && productData.categories ? productData.categories.map((category: any) => {
-                  return {
-                    categories: [category.name]
-                  }
-                }) : []
-              } onSaved={HandleSaveGroups} onlyDisplayOneGroup={true}/>
+              <GroupCategories selectedGroups={[]} onSaved={HandleSaveGroups} onlyDisplayOneGroup={true}/>
             )
           }
           return (

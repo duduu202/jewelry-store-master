@@ -67,22 +67,20 @@ export const GroupCategories = ({
     }
 
     const HandleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, category: string) => {
-        console.log('HandleChange', category, event.target.value);
         const updatedCategories = newGroup.categories.map(cat =>
            cat === category ? event.target.value : cat
         );
-     
+        newGroup.categories = updatedCategories;
         setNewGroup({
-           ...newGroup,
            categories: updatedCategories,
         });
+        console.log("result: ", newGroup, updatedCategories);
      };
 
 
 
     const HandleSave = async () => {
         newGroup.categories = newGroup.categories.filter((item) => item !== "");
-        console.log('HandleSave', newGroup, !newGroup, newGroup.categories?.length === 0);
         if(!newGroup || newGroup.categories?.length === 0){
             newGroup.categories = [categories[0]];
             setNewGroup(newGroup)
