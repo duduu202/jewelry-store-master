@@ -49,3 +49,20 @@ export const InputWrapper = styled.div`
     border-radius: 0.5rem;
     background-color: ${({theme}) => theme.colors.grayBackground};
   `;
+
+
+export const InputDate = styled.input`
+  width: 130px;
+  height: 100%;
+
+  font-size: 1rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.dark_font};
+
+  padding-left: 0.8rem;
+
+  background-color: ${({ theme }) => theme.colors.background};
+  border-radius: 0.25rem;
+  color: ${({ theme }) => theme.colors.light_font};
+
+`;

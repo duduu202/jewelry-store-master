@@ -9,6 +9,7 @@ import api from "../../services/api";
 import { IPaginatedResponse } from "../../Interfaces/IPaginatedResponse";
 import { Point } from "chart.js/dist/core/core.controller";
 import { GroupCategories } from "../../components/GroupCategories/GroupCategories";
+import { InputDate } from "../../components/Input/styles";
 
 const route = "/dashboard";
 
@@ -237,17 +238,24 @@ const DashboardPage = () => {
     <PageContainer>
       <Navbar />
       <Container>
-        <div>
-          <label htmlFor="start_date">Data inicial</label>
-          <input type="date" id="start_date" name="start_date" value={startDate.toISOString().split('T')[0]} onChange={handleStartDate} />
-
-          <label htmlFor="end_date">Data final</label>
-          <input type="date" id="end_date" name="end_date" value={endDate.toISOString().split('T')[0]} onChange={handleEndDate} />
+        <div style={{margin: '0.25rem'}}>
+          <div>
+            <div>
+              <label htmlFor="start_date">Data inicial </label>
+            </div>
+            <InputDate type="date" id="start_date" name="start_date" value={startDate.toISOString().split('T')[0]} onChange={handleStartDate} />
+          </div>
+          <div>
+            <div>
+              <label htmlFor="end_date">Data final </label>
+            </div>
+            <InputDate type="date" id="end_date" name="end_date" value={endDate.toISOString().split('T')[0]} onChange={handleEndDate} />
+          </div>
         </div>
 
         <GroupCategories selectedGroups={selectedGroups} onSaved={HandleSaveGroups} />
 
-        <div>
+        <div style={{margin: '0.25rem'}}>
           <input type="checkbox" id="include_all_sales" name="include_all_sales" checked={includeAllSales} onChange={HandleChangeIncludeAllSales} />
           <label htmlFor="include_all_sales">Incluir todas as vendas</label>
         </div>
