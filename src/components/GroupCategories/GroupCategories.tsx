@@ -19,12 +19,14 @@ import { Container } from "../Input/styles";
 interface Props {
     selectedGroups: IGroupDTO[];
     onSaved?: (groups: IGroupDTO[]) => void;
+    onlyDisplayOneGroup?: boolean;
 }
 
 
 export const GroupCategories = ({ 
     selectedGroups,
     onSaved,
+    onlyDisplayOneGroup,
 }: Props) => {
     const [ categories, setCategories ] = useState<string[]>([]);
     const [ groups, setGroups ] = useState<IGroupDTO[]>([]);
@@ -114,13 +116,26 @@ export const GroupCategories = ({
                     )
                 }).concat(
                     <div>
-                        <GroupCell>
-                            <PlusButtonComponent width="50px" height="30px" onClick={() => {
-                                setIsOpenModal(true);
-                            }}>
-                                <span>+</span>
-                            </PlusButtonComponent>
-                        </GroupCell>
+                        {
+                            onlyDisplayOneGroup ? 
+                            <div>
+                                {
+                                    groups.length === 0 ?
+                                    <GroupCell>
+                                        <PlusButtonComponent width="50px" height="30px" onClick={() => {
+                                            setIsOpenModal(true);
+                                        }}><span>+</span></PlusButtonComponent>
+                                    </GroupCell> : <></>
+                                }
+                            </div> : 
+                            <GroupCell>
+                                <PlusButtonComponent width="50px" height="30px" onClick={() => {
+                                    setIsOpenModal(true);
+                                }}>
+                                    <span>+</span>
+                                </PlusButtonComponent>
+                            </GroupCell>
+                        }
                     </div>
                 )
             }

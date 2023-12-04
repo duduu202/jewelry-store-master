@@ -63,15 +63,25 @@ const ListEditor = (props: IProps) => {
     const handleSave = async (object: any) => {
         const formData = new FormData();
       
-        // Adicione os parâmetros do objeto (exceto a imagem) ao formData
+        // Adicione os parâmetros do objeto (exceto a imagem e categories) ao formData
         for (const key in props.objectKeys) {
+          if(key === 'image'){
+            continue;
+          }
           if (Object.prototype.hasOwnProperty.call(props.objectKeys, key)) {
             formData.append(key, object[key]);
           }
+          // categories
+          if (key === 'categories') {
+            object.categories.forEach((category: string) => {
+              formData.append('categories', category);
+            });
+          }
+
         }
       
         // Adicione a imagem ao formData
-        formData.append('image', object.image);
+        //formData.append('image', object.image);
       
         try {
           if (object.id) {
