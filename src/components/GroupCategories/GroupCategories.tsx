@@ -67,9 +67,23 @@ export const GroupCategories = ({
     }
 
     const HandleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, category: string) => {
-        const updatedCategories = newGroup.categories.map(cat =>
-           cat === category ? event.target.value : cat
-        );
+        console.log('HandleChange', category, event.target.value, event.target);
+        const position = event.target.id;
+        const newCategory = event.target.value;
+        // const updatedCategories = newGroup.categories.map(cat =>
+        //    cat === category ? event.target.value : cat
+        // );
+        const updatedCategories = newGroup.categories.map((cat, index) => {
+            if(index === Number(position)){
+                return newCategory;
+            }
+            return cat;
+        });
+
+        if(Number(position) > newGroup.categories.length){
+            updatedCategories.push(newCategory);
+        }
+
         newGroup.categories = updatedCategories;
         setNewGroup({
            categories: updatedCategories,
@@ -80,7 +94,9 @@ export const GroupCategories = ({
 
 
     const HandleSave = async () => {
+        console.log("ANTESDETUDO ",newGroup)
         newGroup.categories = newGroup.categories.filter((item) => item !== "");
+        console.log('HandleSave', newGroup, !newGroup, newGroup.categories?.length === 0);
         if(!newGroup || newGroup.categories?.length === 0){
             newGroup.categories = [categories[0]];
             setNewGroup(newGroup)
@@ -144,13 +160,13 @@ export const GroupCategories = ({
                 </h4>
             <ModalContent2>
                 {
-                    newGroup?.categories?.map((category) => {
+                    newGroup?.categories?.map((category, index) => {
                         return (
                             <Container>
                                 {/* <Input type="text" label={category} iconName={category} placeholder={category} value={category? category : ''} onChange={(e) => HandleChange(e, category)} /> */}
                                 <div style={{width: '100%', height: '100%'}}
                                 >
-                                    <SelectComponent name="status" id="status" defaultValue={categories[0]} onChange={(e) => {
+                                    <SelectComponent name="status" id={String(index)} defaultValue={categories[0]} onChange={(e) => {
                                         HandleChange(e, category);
                                     }
                                     }>
