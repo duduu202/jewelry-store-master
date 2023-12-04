@@ -22,10 +22,19 @@ const DashboardPage = () => {
   // start_month.setDate(1);
   // start_month.setHours(0, 0, 0, 0);
 
-  const start_month = new Date('2023-01-01T00:00:00.000Z');
+  const now = new Date();
+
+  // start month = now - 6 months
+  const start_month = new Date(now.getFullYear(), now.getMonth() - 6, 1);
+  start_month.setDate(new Date(start_month.getFullYear(), start_month.getMonth() + 1, 0).getDate());
+  start_month.setHours(0, 0, 0, 0);
+
+  // end month = now + 6 months
+  const end_month = new Date(now.getFullYear(), now.getMonth() + 6, 1);
+  end_month.setDate(new Date(end_month.getFullYear(), end_month.getMonth() + 1, 0).getDate());
+  end_month.setHours(23, 59, 59, 999);
 
 
-  const end_month = new Date('2023-12-01T00:00:00.000Z');
   // set days to end of month and hours to 23:59:59
   // end_month.setDate(new Date(end_month.getFullYear(), end_month.getMonth() + 1, 0).getDate());
   // end_month.setHours(23, 59, 59, 999);
@@ -59,7 +68,10 @@ const DashboardPage = () => {
       return {
         label: item.categories.join(', '),
         data: item.datas.map((item) => {
-          return item.quantity;
+          return {
+            y: item.quantity,
+            x: String(item.date).split('T')[0]
+          };
         }),
         borderColor: item.color,
         tension: 0.1,
@@ -182,7 +194,7 @@ const DashboardPage = () => {
           item.categories = item.categories.map((item) => item.toLowerCase());
           return item;
         }),
-        division_split: getLabels().length,
+        division_split: 15,
         all_sales: includeAllSales
       }
         const { data } = await api.get<IResponseDashboard[]>(route, {
@@ -249,7 +261,6 @@ const DashboardPage = () => {
           title="Vendas"
           data={
             {
-              labels: getLabels(),
               datasets: getDataSets()
             }
           } setEstabelecimentoGraphicIndex={['a']} key={['a']} />

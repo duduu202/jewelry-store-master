@@ -11,6 +11,7 @@ import {
     Tooltip,
     Legend,
     ChartData,
+    TimeScale,
   } from 'chart.js'
 
 interface Props {
@@ -27,7 +28,8 @@ ChartJS.register(
   LinearScale,
   Tooltip,
   PointElement,
-  LineElement
+  LineElement,
+  TimeScale,
 );
 
 export const LineChart = ({ title, data, setEstabelecimentoGraphicIndex }: Props) => {
@@ -56,6 +58,7 @@ export const LineChart = ({ title, data, setEstabelecimentoGraphicIndex }: Props
       ref={chartRef}
       options={{
         // maintainAspectRatio: false,
+        type: 'time',
         backgroundColor: "rgba(185, 185, 185, 0.1)",
         responsive: true,
         scales: {
@@ -67,7 +70,6 @@ export const LineChart = ({ title, data, setEstabelecimentoGraphicIndex }: Props
           y: {
             beginAtZero: false,
             min: -0.5,
-            max: getMaxValue() || 100,
             grid: {
               borderDash: [2, 3],
               color: "#514D4B",
