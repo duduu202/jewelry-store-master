@@ -116,6 +116,7 @@ const UserListPage = () => {
                     name: "Nome",
                     email: "E-mail",
                     CPF: "CPF",
+                    password: "Senha",
                 }} ></ListEditor>
             )}
   

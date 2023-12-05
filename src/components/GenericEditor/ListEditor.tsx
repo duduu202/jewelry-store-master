@@ -150,6 +150,9 @@ const ListEditor = (props: IProps) => {
                             id: item.id,
                             //items: [item.name, item.stock, item.image ? <img src={item.image} alt="imagem" width="100px" height="100px"/> : <></>, item.price ? item.price : <></>,
                             items: Object.keys(props.objectKeys).map(key => {
+                                if(key === 'password'){
+                                  return <></>
+                                }
                                 if(key === 'image'){
                                     return item.image ? <img src={item.image} alt="imagem" width="100px" height="100px"/> : <></>
                                 }

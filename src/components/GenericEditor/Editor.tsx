@@ -102,6 +102,11 @@ const Editor = (props: IProps) => {
               <GroupCategories selectedGroups={[]} onSaved={HandleSaveGroups} onlyDisplayOneGroup={true}/>
             )
           }
+          if(key === 'password'){
+            return (
+              <Input type="password" label={props.objectKeys[key]} iconName={key} placeholder={key} value={productData? productData[key] : ''} onChange={e => handleChange(e)} />
+            )
+          }
           return (
             <Input type="text" label={props.objectKeys[key]} iconName={key} placeholder={key} value={productData? productData[key] : ''} onChange={e => handleChange(e)} />
           )
